@@ -63,24 +63,22 @@ xmlns:p="http://primefaces.org/ui">
 					</p:dialog>
 					<br></br>
 					Choose type of training program 
-			
 				    <p:growl id="msgs" showDetail="true"/>
-					<!-- <p:panel header="Double Combo" style="margin-bottom:10px;"> -->
-				        <h:panelGrid columns="2" cellpadding="5">
-				            <p:selectOneMenu id="city" value="#{pprBean.city}">
-				                <f:selectItem itemLabel="Select City" itemValue="" />
-				                <f:selectItems value="#{pprBean.cities}" />
-				                <p:ajax update="suburbs"
-				                        listener="#{pprBean.handleCityChange}" />
-				            </p:selectOneMenu>
-				            <p:selectOneMenu id="suburbs" value="#{pprBean.suburb}">
-				                <f:selectItem itemLabel="Select Suburb" itemValue="" />
-				                <f:selectItems value="#{pprBean.suburbs}" />
-				            </p:selectOneMenu>
-				        </h:panelGrid>
-				        <p:separator />
-						<p:commandButton value="Submit" update="msgs" actionListener="#{pprBean.displayLocation}" id="btnSubmit"/>
-					<!-- </p:panel> -->
+						<!-- <p:panel header="Double Combo" style="margin-bottom:10px;"> -->
+					        <h:panelGrid columns="2" cellpadding="5">
+					            <p:selectOneMenu id="city" value="#{pprBean.city}">
+					                <f:selectItem itemLabel="Select City" itemValue="" />
+					                <f:selectItems value="#{pprBean.cities}" />
+					                <p:ajax update="suburbs" listener="#{pprBean.handleCityChange}" />
+					            </p:selectOneMenu>
+					            <p:selectOneMenu id="suburbs" value="#{pprBean.suburb}">
+					                <f:selectItem itemLabel="Select Suburb" itemValue="" />
+					                <f:selectItems value="#{pprBean.suburbs}" />
+					            </p:selectOneMenu>
+					        </h:panelGrid>
+					        <p:separator />
+							<p:commandButton value="Submit" update="msgs" actionListener="#{pprBean.displayLocation}" id="btnSubmit"/>
+						<!-- </p:panel> -->
 					</h:form>		
 					
 					<br></br>

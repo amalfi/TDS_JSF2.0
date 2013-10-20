@@ -129,19 +129,21 @@ public class User implements Serializable {
        Transaction transaction = null;
        try 
        {
-           transaction = session.beginTransaction();
+       log.debug("Session.beginTransaction process started");   
+          transaction = session.beginTransaction();
           User user = new User();
           user.setName(name);
 		  user.setPassword(password);
           
           session.save(user);
            transaction.commit();
-           System.out.println("Records inserted sucessessfully");
+       log.debug("Records inserted sucessessfully");
        } catch (HibernateException e) 
        
        {
            transaction.rollback();
            e.printStackTrace();
+           log.debug(e.getMessage());
        } 
        
        finally 
