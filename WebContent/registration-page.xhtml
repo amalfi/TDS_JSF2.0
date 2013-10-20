@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+<title>JSF 2: Blank Starting-Point Project</title>
+<link href="./css/styles.css"
+      rel="stylesheet" type="text/css"/>
+</h:head>
+<h:body>
+<b>Welcome to the start page</b>
+<br>
+</br>
+
+<h:form id="form">
+  	<p:toolbar>
+    	   		<p:toolbarGroup align="left">
+    	      Welcome to registration page !
+    	   		</p:toolbarGroup>
+    			<p:toolbarGroup align="right">
+					<p:menuButton value="Navigate">
+						<p:menuitem value="Take me to main page" url="/login-page.jsf"/>
+					</p:menuButton>
+				</p:toolbarGroup>
+		</p:toolbar>
+
+    <p:panel >
+    <br>
+    </br>
+     To add new User fill the forms and click "Register"
+     <br></br>
+<!-- Registration panel begin -->
+        <p:panelGrid columns="2" styleClass="centered" >
+	         <br></br>
+	       	 User name
+		     <br></br>
+		     <p:inputText value="#{user.name}" style="position:center;"/>
+			 <br></br>
+		  	 Password
+	       <p:password value="#{user.password}" feedback="true" inline="true" />
+	         <p:commandButton value="Submit" action="#{user.SaveUser}">
+	        	 <f:actionListener type="com.trainingdiary.database.SaveUser"/>
+	         </p:commandButton>
+       </p:panelGrid>
+<!-- Registration panel end -->   
+    </p:panel>
+    <p:spacer height="10" />
+                    
+ </h:form>
+    
+</h:body>
+</html>

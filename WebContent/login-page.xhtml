@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+<title>Welcome to Training Diary Managment System !</title>
+<link href="./css/styles.css" 
+      rel="stylesheet" type="text/css"/> 
+</h:head>
+<h:body>
+
+
+<p:layout fullPage="true" >
+
+                <p:layoutUnit id="top" position="north" size="100" >north</p:layoutUnit>
+                
+                <p:layoutUnit id="bottom" position="south" size="100" > <b> You are not registered ? Click the button to get into registration process !</b>
+			    <br>
+			    </br>
+					<h:form>
+				     <p:commandButton value="Take me to the registration site" action="registration-page">
+				     </p:commandButton>
+					</h:form>
+				</p:layoutUnit>
+	
+                
+                <p:layoutUnit id="left" position="west" size="100">west</p:layoutUnit>
+                
+                <p:layoutUnit id="right" position="east" size="100">east</p:layoutUnit>
+                
+                <p:layoutUnit id="center" position="center" >
+        	    	<b>Please, log in to get further </b>
+					<br>
+					</br>
+					<h:form> 
+						     User :
+						     <br></br>
+						      <p:inputText value="#{user.name}" />
+						     <br></br>
+						     
+						     
+						     Password : 
+						     <br></br>
+						     <p:password value="#{user.password}" />
+						     <br>
+						     </br>
+						     <p:commandButton action="#{user.login}" value="Submit" />
+				     </h:form>
+				     <br>
+				     </br>
+				</p:layoutUnit>
+                              
+</p:layout>
+
+
+	
+</h:body>
+</html>
