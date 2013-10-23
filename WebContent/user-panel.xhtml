@@ -62,26 +62,12 @@ xmlns:p="http://primefaces.org/ui">
 						</h:panelGrid>
 					</p:dialog>
 					<br></br>
-					Choose type of training program <!--From ProgramTypesBean -->
-				    <p:growl id="msgs" showDetail="true"/>
-					<p:panel header="Double Combo" style="margin-bottom:10px;">
-					        <h:panelGrid columns="2" cellpadding="5">
-					        
-					            <p:selectOneMenu id="city" value="#{pprBean.city}">
-					                <f:selectItem itemLabel="Select City" itemValue="" />
-					                <f:selectItems value="#{pprBean.cities}" />
-					                <p:ajax update="suburbs" listener="#{pprBean.handleCityChange}" />
-					            </p:selectOneMenu>
-					            
-					            <p:selectOneMenu id="suburbs" value="#{pprBean.suburb}">
-					                <f:selectItem itemLabel="Select Suburb" itemValue="" />
-					                <f:selectItems value="#{pprBean.suburbs}" />
-					            </p:selectOneMenu>
-					            
-					        </h:panelGrid>
-					        <p:separator/>
-					</p:panel> 
-					</h:form>		
+					Choose type of training program <!--From ProgramTypesBeanean -->
+					<br></br>
+			         <p:selectOneMenu value="Choose training system">
+			            <f:selectItems value="#{programTypes.programs}" />
+			         </p:selectOneMenu>
+					 </h:form>		
 					
 					<br></br>
 					Diary description
