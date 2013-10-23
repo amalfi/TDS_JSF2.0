@@ -1,9 +1,14 @@
 package com.trainingdiary;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
@@ -21,22 +26,33 @@ public class DiaryBean implements Serializable
 	static Logger log = Logger.getLogger(DiaryBean.class);
 	private static final long serialVersionUID = 1L;
 	private String nameOfDiary;
-	private String diaryCreationDate;
+	private Date diaryCreationDate;
 	private String diaryDescription;
 	private String choosedTrainingPlan;
 	
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(columnDefinition = "MEDIUMINT NOT NULL AUTO_INCREMENT")
+	private Integer id;
 	
+	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public Date getDiaryCreationDate() {
+		return diaryCreationDate;
+	}
+	public void setDiaryCreationDate(Date diaryCreationDate) {
+		this.diaryCreationDate = diaryCreationDate;
+	}
 	public String getNameOfDiary() {
 		return nameOfDiary;
 	}
 	public void setNameOfDiary(String nameOfDiary) {
 		this.nameOfDiary = nameOfDiary;
-	}
-	public String getDiaryCreationDate() {
-		return diaryCreationDate;
-	}
-	public void setDiaryCreationDate(String diaryCreationDate) {
-		this.diaryCreationDate = diaryCreationDate;
 	}
 	public String getDiaryDescription() {
 		return diaryDescription;
