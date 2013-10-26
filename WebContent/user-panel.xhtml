@@ -64,8 +64,9 @@ xmlns:p="http://primefaces.org/ui">
 					<br></br>
 					Choose type of training program <!--From ProgramTypesBeanean -->
 					<br></br>
+					
 			         <p:selectOneMenu value="Choose training system">
-			            <f:selectItems value="#{programTypes.programs}" />
+			            <f:selectItems value="#{programType.pts}"/>
 			         </p:selectOneMenu>
 					 </h:form>		
 					
@@ -90,7 +91,7 @@ xmlns:p="http://primefaces.org/ui">
 					    </p:dialog>
 
                     	
-		 <br></br>
+		 <br></br>	
 		  </p:layoutUnit>
 	<!-- End of middle layout sector -->
 	

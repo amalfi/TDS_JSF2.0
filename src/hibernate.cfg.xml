@@ -28,6 +28,8 @@
     
   	<mapping resource="user.hbm.xml"></mapping>  
     <mapping resource="diary.hbm.xml"></mapping>  
+    <mapping resource="programType.hbm.xml"></mapping>  
+    
  	 
  	 
   </session-factory>
