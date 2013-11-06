@@ -22,7 +22,7 @@ import com.trainingdiary.database.HibernateUtil;
 
 
 @javax.persistence.Entity
-@ManagedBean
+@ManagedBean(name="programType")
 @SessionScoped
 public class ProgramType implements Serializable 
 {

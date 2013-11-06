@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.org/ui">
+<h:head>
+<title>User Panel - Training Diary System</title>
+<link href="./css/styles.css" 
+      rel="stylesheet" type="text/css"/> 
+</h:head>
+<h:body>
+<h:form>
+        
+        
+
+<p:layout fullPage="true" >
+<!-- Top layout sector -->
+    <p:layoutUnit id="top" position="north" size="100" >
+            <br></br>
+            <p:toolbar>
+                <p:toolbarGroup align="left">
+	                <p:menuButton value="Main menu">
+		                
+		                <p:menuitem value="Create new training diary" url="/user-panel.jsf" />
+		                <p:menuitem value="Add new training session to exsiting diary" url="/new_training.jsf" />
+		                <p:menuitem value="Add new training program" url="/create-new-program.jsf" />
+		                <p:menuitem value="Edit existing diary" url="/user-panel.jsf" />
+		                <p:menuitem value="Edit existing training" url="/user-panel.jsf" />
+		                
+               		</p:menuButton>
+               	</p:toolbarGroup>
+               
+
+                <p:toolbarGroup align="right">
+	                <p:menuButton value="Navigate">
+		                <p:menuitem value="Home" url="/login-page.jsf" />
+		                <p:menuitem value="Logout" url="/login-page.jsf" />
+               		</p:menuButton>
+                </p:toolbarGroup>
+                  </p:toolbar>
+    </p:layoutUnit>
+  <!-- End of top layout sector -->
+  
+  <!-- Middle layout sector -->
+            <p:layoutUnit id="center" position="center" >
+
+              		<p:panelGrid columns="2">
+					    <f:facet name="header">
+					        Create new training type
+					    </f:facet>
+					
+					    <h:outputLabel for="programName" value="Program Name: " />
+					  	  <p:inputText id="programName" value="#{programType.programName}" label="Program Name" />
+					
+					    <h:outputLabel for="programDescription" value="Program Description: " />
+					   	 <p:inputText id="programDescription" value="#{programType.programDescription}" required="true" label="Surname"/>
+					
+					   <h:outputLabel for="trainingType" value="Program Description: " />
+					     <p:selectOneMenu id="trainingType" value="#{programType.pts}">
+					            <f:selectItem itemLabel="Select One" itemValue="" />
+					            <f:selectItem itemLabel="Full Body Workout" itemValue="Full Body Workout"/>
+					            <f:selectItem itemLabel="Split" itemValue="Split" />
+					            <f:selectItem itemLabel="Crossfit / ATC" itemValue="Crossfit / ATC" />
+				         </p:selectOneMenu>
+					
+					    <f:facet name="footer">
+					        <p:commandButton value="Submit" action="#{programType.SaveProgram}" ajax="false"/>
+					    </f:facet>
+			 	  </p:panelGrid>
+            </p:layoutUnit>
+  <!-- End of middle layout sector -->
+  
+  <!-- Bottom layout sector-->
+    <p:layoutUnit id="bottom" position="south" size="100" >
+    
+    </p:layoutUnit>
+        <!-- End of bottom layout sector-->                              
+</p:layout>
+
+
+</h:form>
+</h:body>
+</html>         

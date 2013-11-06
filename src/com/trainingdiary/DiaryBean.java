@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -20,9 +22,23 @@ import com.trainingdiary.database.HibernateUtil;
 
 @javax.persistence.Entity
 @ManagedBean
-@SessionScoped
+@RequestScoped
 public class DiaryBean implements Serializable
 {
+	@ManagedProperty(value="#{programType}") 
+	private ProgramType programType;
+	
+	public ProgramType getProgramType() 
+	{
+		return programType;
+	}
+	public void setProgramType(ProgramType programType) 
+	{
+		this.programType = programType;
+	}
+//---------------------------------------------------------	
+	
+	
 	static Logger log = Logger.getLogger(DiaryBean.class);
 	private static final long serialVersionUID = 1L;
 	private String nameOfDiary;
@@ -35,7 +51,7 @@ public class DiaryBean implements Serializable
     @Column(columnDefinition = "MEDIUMINT NOT NULL AUTO_INCREMENT")
 	private Integer id;
 	
-	
+   
 	public Integer getId() {
 		return id;
 	}
@@ -77,7 +93,7 @@ public class DiaryBean implements Serializable
 	          transaction = session.beginTransaction();
 	          DiaryBean diaryBean = new DiaryBean();
 	       log.debug("Setting properties of new diary : "+choosedTrainingPlan+" , " + diaryCreationDate + ", " + diaryDescription + ", " + nameOfDiary);
-	          diaryBean.setChoosedTrainingPlan(choosedTrainingPlan);
+	          diaryBean.setChoosedTrainingPlan(programType.getProgramName());
 	          diaryBean.setDiaryCreationDate(diaryCreationDate);
 	          diaryBean.setDiaryDescription(diaryDescription);
 	          diaryBean.setNameOfDiary(nameOfDiary);
