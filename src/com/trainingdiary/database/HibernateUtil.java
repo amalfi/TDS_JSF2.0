@@ -1,18 +1,22 @@
 package com.trainingdiary.database;
+import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
-import org.hibernate.cfg.Configuration;
+
+import com.trainingdiary.DiaryBean;
 
 
 @SuppressWarnings("deprecation")
 public class HibernateUtil
 {
+	static Logger log = Logger.getLogger(DiaryBean.class);
 	private static final SessionFactory sessionFactory = buildSessionFactory();
 	 
     private static SessionFactory buildSessionFactory() {
         try 
         {
             // Create the SessionFactory from hibernate.cfg.xml
+        	//log.debug("Create the SessionFactory from hibernate.cfg.xml");
             return new AnnotationConfiguration().configure().buildSessionFactory();
  
         }
@@ -31,6 +35,7 @@ public class HibernateUtil
  
     public static void shutdown() {
     	// Close caches and connection pools
+    	//log.debug("Close caches and connection pools");
     	getSessionFactory().close();
     }
  

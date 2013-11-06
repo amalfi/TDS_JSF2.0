@@ -67,7 +67,7 @@ public class DiaryBean implements Serializable
 		this.choosedTrainingPlan = choosedTrainingPlan;
 	}
 //------------------------------------------------------------------
-	  public String SaveDiary() //method which save  new User 
+	  public String SaveDiary() //method which save diary0++
 	   {
 	       Session session = HibernateUtil.getSessionFactory().openSession();
 	       Transaction transaction = null;

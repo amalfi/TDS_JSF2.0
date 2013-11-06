@@ -5,12 +5,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,17 +26,22 @@ import com.trainingdiary.database.HibernateUtil;
 @SessionScoped
 public class ProgramType implements Serializable 
 {
-	static Logger log = Logger.getLogger(DiaryBean.class);
+
+	private static final long serialVersionUID = 1L;
+	static Logger log = Logger.getLogger(ProgramType.class);
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(columnDefinition = "MEDIUMINT NOT NULL AUTO_INCREMENT")
 	private Integer id;
 	private String programName;
-	private ArrayList<ProgramType> pts = new ArrayList<ProgramType>();
+	private String programDescription;
+	private String trainingType;
+	private HashMap<String,Object> pts = new HashMap<String,Object>();
+	
 
-
-	//----------------------------------------------------	
+	//----------------------------------------------------
+	
 	public Integer getId() {
 		return id;
 	}
@@ -47,29 +49,76 @@ public class ProgramType implements Serializable
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
-	
-	public ArrayList<ProgramType> getPts() 
-	{
+
+	public String getProgramName() {
+		return programName;
+	}
+
+	public void setProgramName(String programName) {
+		this.programName = programName;
+	}
+
+	public String getProgramDescription() {
+		return programDescription;
+	}
+
+	public void setProgramDescription(String programDescription) {
+		this.programDescription = programDescription;
+	}
+
+	public String getTrainingType() {
+		return trainingType;
+	}
+
+	public void setTrainingType(String trainingType) {
+		this.trainingType = trainingType;
+	}
+
+	public HashMap<String,Object> getPts() {
 		return pts;
 	}
 
-	public void setPts(ArrayList<ProgramType> pts) 
-	{
+	public void setPts(HashMap<String,Object> pts) {
 		this.pts = pts;
 	}
 
 	
-	public String getProgramName() 
+	//----------------------------------------------------
+	public HashMap<String,Object> getLoadPrograms()
 	{
-		return programName;
+		pts=LoadPrograms();
+		return pts;
+	}
+	
+	public HashMap<String,Object> LoadPrograms()
+	{
+		Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = null;
+        try 
+        { 
+            transaction = session.beginTransaction();
+            List programtypes = session.createQuery("from ProgramType").list();
+            for (Iterator iterator = programtypes.iterator(); iterator.hasNext();)
+            {
+                ProgramType programType = (ProgramType) iterator.next();
+                pts.put(programType.programName.toString(), programType);
+                System.out.println("test");
+            }          	
+            transaction.commit();
+        } 
+        catch (HibernateException e) 
+        {
+            transaction.rollback();
+            e.printStackTrace();  
+            log.debug(e.getMessage());
+        } 
+        finally 
+        {
+            session.close();
+        }
+		return pts;
 	}
 
-	public void setProgramName(String programName) 
-	{
-		this.programName = programName;
-	}
-//----------------------------------------------------
 	public String SaveProgram() //method which save  new User 
 	   {
 	       Session session = HibernateUtil.getSessionFactory().openSession();
@@ -81,15 +130,17 @@ public class ProgramType implements Serializable
 	          
 	          ProgramType pm = new ProgramType();
 	          pm.setProgramName(programName);
+	          pm.setProgramDescription(programDescription);
+	          pm.setTrainingType(trainingType);
 	 
 	          session.save(pm);
 	           transaction.commit();
 	        
 	       log.debug("New Training Program Type saved succesfully");
-	       } catch (HibernateException e) 
-	       
+	       }
+	       catch (HibernateException e) 
 	       {
-	           transaction.rollback();
+	    	   transaction.rollback();
 	           e.printStackTrace();
 	           log.debug(e.getMessage());
 	       } 
@@ -99,36 +150,8 @@ public class ProgramType implements Serializable
 	           session.close();
 	       }
 		return "";
-			  
-			
+			  	
 	   }
-	
-	
-//----------------------------------------------------
-	
-	public ProgramType()
-    {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction transaction = null;
-        try { 
-            transaction = session.beginTransaction();
-                        List programtypes = session.createQuery("from programTypes").list();
-            for (Iterator iterator = programtypes.iterator(); iterator.hasNext();)
-            {
-                ProgramType programType = (ProgramType) iterator.next();
-                pts.add(programType);
-                System.out.println(pts.toArray().toString());
-            }          
-            
-            System.out.println(pts.toArray().toString());
-            transaction.commit();
-        } catch (HibernateException e) {
-            transaction.rollback();
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-    }
 }
 
 					

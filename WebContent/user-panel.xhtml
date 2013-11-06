@@ -11,96 +11,93 @@ xmlns:p="http://primefaces.org/ui">
 </h:head>
 <h:body>
 <h:form>
-	
-	
+        
+        
 
 <p:layout fullPage="true" >
-	<!-- Top layout sector -->
-	  <p:layoutUnit id="top" position="north" size="100" >
-		  <br></br>
-		  <p:toolbar>
-				<p:toolbarGroup align="left">
-					<p:commandButton
-						type="push" value="Create new training diary" icon="ui-icon-document" />
-					<p:commandButton
-						type="push" value="Add new training" icon="ui-icon-plusthick" action="new_training.xhtml" />
-					<p:commandButton
-						type="push" value="Edit existing diary" icon="ui-icon-document" />
-					<p:commandButton
-						type="push" value="Edit existing training" icon="ui-icon-document" />
-				</p:toolbarGroup>
-				
-				<p:toolbarGroup align="right">
-				<p:menuButton value="Navigate">
-				<p:menuitem value="Home" url="/login-page.jsf" />
-				<p:menuitem value="Logout" url="/login-page.jsf" />
-				</p:menuButton>
-				</p:toolbarGroup>
-			</p:toolbar>
-	  </p:layoutUnit>
-	<!-- End of top layout sector -->
-	
-	<!-- Middle layout sector -->
-		  <p:layoutUnit id="center" position="center" >
-		 
-				 <h:form id="form">	
-					  <br></br>
-			  			Name of diary
-			  	   	 <br></br>
-			  			<p:inputText value="#{diaryBean.nameOfDiary}"/>  
-					  <br></br>
-		  			Diary creation date
-		  			<br></br>
-					<p:calendar value="#{diaryBean.diaryCreationDate}" id="popupButtonCal" showOn="button" />
-					<p:dialog header="Selected Dates" widgetVar="dialog" 
-							showEffect="fade" hideEffect="fade">
-						<h:panelGrid id="display" columns="2" cellpadding="5">
-							<h:outputText value="Popup Button Date: " />
-							<h:outputText value="#{diaryBean.diaryCreationDate}" id="popupButtonDate">
-								<f:convertDateTime pattern="d/M/yyyy"/>
-							</h:outputText>
-						</h:panelGrid>
-					</p:dialog>
-					<br></br>
-					Choose type of training program <!--From ProgramTypesBeanean -->
-					<br></br>
-					
-			         <p:selectOneMenu value="Choose training system">
-			            <f:selectItems value="#{programType.pts}"/>
-			         </p:selectOneMenu>
-					 </h:form>		
-					
-					<br></br>
-					Diary description
-					<br></br>
+        <!-- Top layout sector -->
+    <p:layoutUnit id="top" position="north" size="100" >
+            <br></br>
+            <p:toolbar>
+                <p:toolbarGroup align="left">
+	                <p:menuButton value="Main menu">
+		                
+		                <p:menuitem value="Create new training diary" url="/user-panel.jsf" />
+		                <p:menuitem value="Add new training session to exsiting diary" url="/new_training.jsf" />
+		                <p:menuitem value="Add new training program" url="/create-new-program.jsf" />
+		                <p:menuitem value="Edit existing diary" url="/user-panel.jsf" />
+		                <p:menuitem value="Edit existing training" url="/user-panel.jsf" />
+		                
+               		</p:menuButton>
+               	</p:toolbarGroup>
+               
 
+                <p:toolbarGroup align="right">
+	                <p:menuButton value="Navigate">
+		                <p:menuitem value="Home" url="/login-page.jsf" />
+		                <p:menuitem value="Logout" url="/login-page.jsf" />
+               		</p:menuButton>
+                </p:toolbarGroup>
+                  </p:toolbar>
+    </p:layoutUnit>
+  <!-- End of top layout sector -->
+  
+  <!-- Middle layout sector -->
+            <p:layoutUnit id="center" position="center" >
+           
+                   <h:form id="form">        
+                            <br></br>
+                                    Name of diary
+                                <br></br>
+                                    <p:inputText value="#{diaryBean.nameOfDiary}"/>  
+                            <br></br>
+                            Diary creation date
+                            <br></br>
+                          <p:calendar value="#{diaryBean.diaryCreationDate}" id="popupButtonCal" showOn="button" />
+                          <p:dialog header="Selected Dates" widgetVar="dialog" 
+                                          showEffect="fade" hideEffect="fade">
+                                  <h:panelGrid id="display" columns="2" cellpadding="5">
+                                          <h:outputText value="Popup Button Date: " />
+                                          <h:outputText value="#{diaryBean.diaryCreationDate}" id="popupButtonDate">
+                                                  <f:convertDateTime pattern="d/M/yyyy"/>
+                                          </h:outputText>
+                                  </h:panelGrid>
+                          </p:dialog>
+                          <br></br>
+                          Choose type of training program <!--From ProgramTypesBean -->
+                      <p:growl id="msgs" showDetail="true"/>
 
-					    <p:editor id="editor" value="#{diaryBean.diaryDescription}" width="600"/>
-					
-					    <h:panelGrid columns="2" style="margin-top:10px">
-					    
-					        <p:commandButton id="submitButton" value="Save diary!" action="#{diaryBean.SaveDiary}" update="display" oncomplete="PF('dlg').show()"
-					                        icon="ui-icon-disk" ajax="false" />
-					                        
-					        <p:commandButton id="clearButton" type="button" value="Clear" onclick="PF('editor').clear()"
-					                        icon="ui-icon-close" />
-					    </h:panelGrid>
-					
-					    <p:dialog header="Content" widgetVar="dlg" showEffect="fade" hideEffect="fade" modal="true">
-					        <h:outputText id="display" value="#{diaryBean.diaryDescription}" escape="false" />
-					    </p:dialog>
+                        		 		  <br></br>
+									      <p:selectOneMenu value="#{programType.programName}" effect="fold" editable="true">  
+									          <f:selectItem itemLabel="Select One" itemValue="" />  
+									          <f:selectItems value="#{programType.loadPrograms}" />  
+									      </p:selectOneMenu> 
+                          </h:form>                
+                          
+                          <br></br>
+                          Diary description
+                          <br></br>
 
-                    	
-		 <br></br>	
-		  </p:layoutUnit>
-	<!-- End of middle layout sector -->
-	
-	<!-- Bottom layout sector-->
-	  <p:layoutUnit id="bottom" position="south" size="100" ></p:layoutUnit>
-	<!-- End of bottom layout sector-->                              
+                              <p:editor id="editor" value="#{diaryBean.diaryDescription}" width="600"/>
+                              <h:panelGrid columns="2" style="margin-top:10px">
+                                  <p:commandButton id="submitButton" value="Save diary!" action="#{diaryBean.SaveDiary}" ajax="false" />
+                              </h:panelGrid>
+                          
+                              <p:dialog header="Content" widgetVar="dlg" showEffect="fade" hideEffect="fade" modal="true">
+                                  <h:outputText id="display" value="#{diaryBean.diaryDescription}" escape="false" />
+                              </p:dialog>
+
+                      
+            <br></br>
+            </p:layoutUnit>
+  <!-- End of middle layout sector -->
+  
+  <!-- Bottom layout sector-->
+    <p:layoutUnit id="bottom" position="south" size="100" ></p:layoutUnit>
+        <!-- End of bottom layout sector-->                              
 </p:layout>
 
 
 </h:form>
 </h:body>
-</html> 	
+</html>         

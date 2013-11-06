@@ -1,22 +1,11 @@
 package com.trainingdiary;
 
 import java.io.Serializable;
-
-
-
-
-
-
-
-
-
-
 import java.util.Iterator;
 import java.util.List;
 
-import javax.faces.bean.*;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.ActionEvent;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,15 +14,9 @@ import javax.persistence.Id;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.annotations.Entity;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.service.ServiceRegistry;
-import org.hibernate.service.ServiceRegistryBuilder;
 
 import com.trainingdiary.database.HibernateUtil;
-import com.trainingdiary.database.SaveUser;
 
 
 @javax.persistence.Entity
@@ -82,7 +65,8 @@ public class User implements Serializable {
       this.password = password;
    }
  
-   public String login() //method which check if user which try to log in exist in database
+
+public String login() //method which check if user which try to log in exist in database
    {
 	   boolean bEquals=false;
 	   Session session = HibernateUtil.getSessionFactory().openSession();
