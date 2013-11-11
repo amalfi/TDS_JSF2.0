@@ -45,18 +45,19 @@ xmlns:p="http://primefaces.org/ui">
 	<!-- Middle layout sector -->
 		  <p:layoutUnit id="center" position="center" >
 		  <br></br>
-		  	Name of diary
+		  	Name of existing diary
 		  <br></br>
-		  	<p:inputText />  
-		  <br></br>
-				 <h:form id="form">	
-		  			
-					<br></br>
-					Diary description
-					<br></br>
-					<p:editor value="#{editorController.text}" />
-				</h:form>	
-		 <br></br>
+	       <p:selectOneMenu value="#{training.choosedDiary}" effect="fold" editable="true">  
+			   <f:selectItem itemLabel="Select your training diary" itemValue="" />  
+	           <f:selectItems value="#{training.loadDiaries}"/>  
+	       </p:selectOneMenu> 
+  			<br></br>
+			<br></br>
+			Diary description
+			<br></br>
+				<p:editor value="#{training.description}" />
+			<br></br>
+	 			<p:commandButton value="Save training into exsiting Diary" action="#{training.SaveTraining}"></p:commandButton>
 		  </p:layoutUnit>
 	<!-- End of middle layout sector -->
 	

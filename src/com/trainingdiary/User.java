@@ -4,8 +4,12 @@ import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,8 +25,9 @@ import com.trainingdiary.database.HibernateUtil;
 
 @javax.persistence.Entity
 @ManagedBean
-@SessionScoped
-public class User implements Serializable {
+@ViewScoped
+public class User implements Serializable 
+{
 
    static Logger log = Logger.getLogger(User.class);
    private static final long serialVersionUID = 1L;
@@ -65,8 +70,8 @@ public class User implements Serializable {
       this.password = password;
    }
  
-
-public String login() //method which check if user which try to log in exist in database
+   
+/*   public String login() //method which check if user which try to log in exist in database
    {
 	   boolean bEquals=false;
 	   Session session = HibernateUtil.getSessionFactory().openSession();
@@ -84,27 +89,73 @@ public String login() //method which check if user which try to log in exist in 
                log.debug("User : " + user.getName().toString());
            }         
            transaction.commit();
-       } catch (HibernateException e) 
+       } 
+       catch (HibernateException e) 
        {
            transaction.rollback();
            e.printStackTrace();
-       } finally 
+       }
+       finally 
        {
            session.close();
        }
       
        if(bEquals==true)
        {
+    	  takeMeToUserPanel();         
     	   return "user-panel";
-    	         
+       }
+       else 
+       {
+	     return "wrong-password-page";
+       }   
+   }*/
+
+   public void checkPassword(ActionEvent actionEvent) 
+   {  
+	   boolean bEquals=false;
+	   Session session = HibernateUtil.getSessionFactory().openSession();
+       Transaction transaction = null;
+       try {
+           transaction = session.beginTransaction();
+                       List userList = session.createQuery("from User").list();
+           for (Iterator iterator = userList.iterator(); iterator.hasNext();)
+           {
+               User user = (User) iterator.next();
+               if((user.getName().toString().equals(name))&&(user.getPassword().toString().equals(password)))
+               {
+            	   bEquals=true;
+               }
+               log.debug("User : " + user.getName().toString());
+           }         
+           transaction.commit();
+       } 
+       catch (HibernateException e) 
+       {
+           transaction.rollback();
+           e.printStackTrace();
+       }
+       finally 
+       {
+           session.close();
        }
       
+       if(bEquals==true)
+       {
+    	  takeMeToUserPanel();         
+       }
        else 
-      {
-         return "wrong-password-page";
-      }
-      
-	   
+       {
+    	   FacesContext context = FacesContext.getCurrentInstance();  
+			context.addMessage(null, new FacesMessage("Wrong password or login"));  
+       }   
+
+   }  
+   
+   public String takeMeToUserPanel()
+   {
+	   log.debug("Password and login are correct");
+	   return "user-panel";
    }
    
    public String SaveUser() //method which save  new User 

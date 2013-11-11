@@ -54,15 +54,16 @@ xmlns:p="http://primefaces.org/ui">
 					  	  <p:inputText id="programName" value="#{programType.programName}" label="Program Name" />
 					
 					    <h:outputLabel for="programDescription" value="Program Description: " />
-					   	 <p:inputText id="programDescription" value="#{programType.programDescription}" required="true" label="Surname"/>
+					   	 <p:inputText id="programDescription" value="#{programType.programDescription}" required="true" label="Program Description"/>
 					
 					   <h:outputLabel for="trainingType" value="Program Description: " />
-					     <p:selectOneMenu id="trainingType" value="#{programType.pts}">
-					            <f:selectItem itemLabel="Select One" itemValue="" />
-					            <f:selectItem itemLabel="Full Body Workout" itemValue="Full Body Workout"/>
-					            <f:selectItem itemLabel="Split" itemValue="Split" />
-					            <f:selectItem itemLabel="Crossfit / ATC" itemValue="Crossfit / ATC" />
-				         </p:selectOneMenu>
+				         <p:selectOneMenu value="Training Type" effect="fold" editable="true">  
+									          <f:selectItem itemLabel="SPLIT" itemValue="SPLIT" />
+									          <f:selectItem itemLabel="FBW" itemValue="FBW" />       
+									          <f:selectItem itemLabel="ACT" itemValue="ACT" />
+									          <f:selectItem itemLabel="CROSSFIT" itemValue="CROSSFIT" /> 
+									          <f:selectItem itemLabel="OTHER" itemValue="OTHER" /> 
+					     </p:selectOneMenu> 
 					
 					    <f:facet name="footer">
 					        <p:commandButton value="Submit" action="#{programType.SaveProgram}" ajax="false"/>

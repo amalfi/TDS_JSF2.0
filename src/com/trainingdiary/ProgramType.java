@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -102,7 +103,6 @@ public class ProgramType implements Serializable
             {
                 ProgramType programType = (ProgramType) iterator.next();
                 pts.put(programType.programName.toString(), programType);
-                System.out.println("test");
             }          	
             transaction.commit();
         } 
@@ -119,7 +119,7 @@ public class ProgramType implements Serializable
 		return pts;
 	}
 
-	public String SaveProgram() //method which save  new User 
+	public String SaveProgram() //method which save new training program which will be used by creating new training diary
 	   {
 	       Session session = HibernateUtil.getSessionFactory().openSession();
 	       Transaction transaction = null;

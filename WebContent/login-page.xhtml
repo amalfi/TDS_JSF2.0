@@ -11,49 +11,46 @@ xmlns:p="http://primefaces.org/ui">
       rel="stylesheet" type="text/css"/> 
 </h:head>
 <h:body>
-
-
+<h:form>
 <p:layout fullPage="true" >
 
-                <p:layoutUnit id="top" position="north" size="100" >north</p:layoutUnit>
-                
-                <p:layoutUnit id="bottom" position="south" size="100" > <b> You are not registered ? Click the button to get into registration process !</b>
-			    <br>
-			    </br>
-					<h:form>
-				     <p:commandButton value="Take me to the registration site" action="registration-page">
-				     </p:commandButton>
-					</h:form>
-				</p:layoutUnit>
-	
-                
-                <p:layoutUnit id="left" position="west" size="100">west</p:layoutUnit>
-                
-                <p:layoutUnit id="right" position="east" size="100">east</p:layoutUnit>
-                
-                <p:layoutUnit id="center" position="center" >
-        	    	<b>Please, log in to get further </b>
-					<br>
-					</br>
-					<h:form> 
-						     User :
-						     <br></br>
-						      <p:inputText value="#{user.name}" />
-						     <br></br>
-						     Password : 
-						     <br></br>
-						     <p:password value="#{user.password}" />
-						     <br>
-						     </br>
-						     <p:commandButton action="#{user.login}" value="Submit"  />
-				     </h:form>
-				     <br>
-				     </br>
-				</p:layoutUnit>
-                              
+             <p:layoutUnit id="top" position="north" size="100" >north</p:layoutUnit>
+             
+             <p:layoutUnit id="left" position="west" size="100">west</p:layoutUnit>
+ 
+             <p:layoutUnit id="right" position="east" size="100">east</p:layoutUnit>
+ 
+            
+<!-- Login Panel  BEGIN-->
+ 			<p:layoutUnit id="center" position="center" >
+      	    
+		      
+		      <p:growl id="growl" showDetail="true" sticky="true" />  
+   			  <p:panel id="panel" header="Log in"> 
+      				<b>Please, log in to get further </b>
+					 <br></br>
+				     User :
+				     <br></br>
+				      <p:inputText value="#{user.name}" />
+				     <br></br>
+				     Password : 
+				     <br></br>
+				     <p:password value="#{user.password}" />
+				     <br></br>
+			     <p:commandButton actionListener="#{user.checkPassword}" value="Submit" update="growl"/>
+			     <br></br>   
+		      </p:panel>
+   	    	
+			</p:layoutUnit>
+<!-- Login Panel  END-->
+			
+            <p:layoutUnit id="bottom" position="south" size="100" > <b> You are not registered ? Click the button to get into registration process !</b>
+	   		  <br></br>
+		     <p:commandButton value="Take me to the registration site" action="registration-page"></p:commandButton>
+			</p:layoutUnit>
+				
+			                              
 </p:layout>
-
-
-	
+</h:form>	
 </h:body>
 </html>
