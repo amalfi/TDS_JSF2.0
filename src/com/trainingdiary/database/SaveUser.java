@@ -13,8 +13,6 @@ public class SaveUser implements ActionListener //Action
 	@Override
 	public void processAction(ActionEvent event) throws AbortProcessingException
 	{
-		
-	log.debug("**************************************Action Event is fired up **************************************");
-		  
+	log.debug("**************************************Action Event is fired up **************************************");	  
 	}
 }

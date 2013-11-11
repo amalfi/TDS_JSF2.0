@@ -47,10 +47,12 @@ xmlns:p="http://primefaces.org/ui">
 		  <br></br>
 		  	Name of existing diary
 		  <br></br>
-	       <p:selectOneMenu value="#{training.choosedDiary}" effect="fold" editable="true">  
+		  
+	       <p:selectOneMenu value="#{training.choosedDiary}" editable="true">  
 			   <f:selectItem itemLabel="Select your training diary" itemValue="" />  
 	           <f:selectItems value="#{training.loadDiaries}"/>  
 	       </p:selectOneMenu> 
+  			
   			<br></br>
 			<br></br>
 			Diary description

@@ -1,5 +1,6 @@
 package com.trainingdiary;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -21,62 +22,60 @@ import com.trainingdiary.database.HibernateUtil;
 
 
 @javax.persistence.Entity
-@ManagedBean(name="training")
+@ManagedBean
 @SessionScoped
-public class Training 
+public class Training implements Serializable 
 {
-	
-  static Logger log = Logger.getLogger(Training.class);
+
+private static final long serialVersionUID = 1L;
+
+static Logger log = Logger.getLogger(Training.class);
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(columnDefinition = "MEDIUMINT NOT NULL AUTO_INCREMENT")
 	  
-  public static String id;
-  public static String description;
-  public static String choosedDiary;
+  public String id;
+  public String description;
+  public String choosedDiary;
   public HashMap<String,Object> allDiaries = new HashMap<String,Object>();
 	
-  
-	public HashMap<String, Object> getAllDiaries() 
-	{
-		return allDiaries;
-	}
+
 	
-	public void setAllDiaries(HashMap<String, Object> allDiaries) 
-	{
-		this.allDiaries = allDiaries;
-	}
-	
-	public static String getChoosedDiary() 
-	{
-		return choosedDiary;
-	}
-	public static void setChoosedDiary(String choosedDiary) 
-	{
-		Training.choosedDiary = choosedDiary;
-	}
-	
-	public static String getId() 
-	{
-		return id;
-	}
-	public static void setId(String id) 
-	{
-		Training.id = id;
-	}
-	
-	public static String getDescription() 
-	{
-		return description;
-	}
-	public static void setDescription(String description) 
-	{
-		Training.description = description;
-	}
-	  
-//------------------------------------------------------------
-	public String SaveTraining() //method which save  new User 
+public String getId() {
+return id;
+}
+
+public void setId(String id) {
+	this.id = id;
+}
+
+public String getDescription() {
+	return description;
+}
+
+public void setDescription(String description) {
+	this.description = description;
+}
+
+public String getChoosedDiary() {
+	return choosedDiary;
+}
+
+public void setChoosedDiary(String choosedDiary) {
+	this.choosedDiary = choosedDiary;
+}
+
+public HashMap<String, Object> getAllDiaries() {
+	return allDiaries;
+}
+
+public void setAllDiaries(HashMap<String, Object> allDiaries) {
+	this.allDiaries = allDiaries;
+}
+
+	//------------------------------------------------------------
+	public void SaveTraining() //method which save  new User 
 	   {
 	       Session session = HibernateUtil.getSessionFactory().openSession();
 	       Transaction transaction = null;
@@ -85,8 +84,8 @@ public class Training
 	       log.debug("Session.beginTransaction process started");   
 	          transaction = session.beginTransaction();
 	          Training training = new Training();
-	          Training.setChoosedDiary(choosedDiary);
-	          Training.setDescription(description);
+	          training.setChoosedDiary(choosedDiary);
+	          training.setDescription(description);
 	          session.save(training);
 	           transaction.commit();
 	       log.debug("Records inserted sucessessfully");
@@ -102,7 +101,7 @@ public class Training
 	       {
 	           session.close();
 	       }
-		return "";
+		
 	   }
 	
 	public HashMap<String,Object> getLoadDiaries()
@@ -119,7 +118,7 @@ public class Training
         try 
         { 
             transaction = session.beginTransaction();
-            List programtypes = session.createQuery("from DiaryBean").list();
+            List programtypes = session.createQuery("from DiaryBean").list(); //is worth to remember (common mistake) - when you use want to select from table, use bean name, not table name
             for (Iterator iterator = programtypes.iterator(); iterator.hasNext();)
             {
                 DiaryBean diary = (DiaryBean) iterator.next();
