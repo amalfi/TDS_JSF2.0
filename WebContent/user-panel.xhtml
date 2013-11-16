@@ -25,8 +25,8 @@ xmlns:p="http://primefaces.org/ui">
 		                <p:menuitem value="Create new training diary" url="/user-panel.jsf" />
 		                <p:menuitem value="Add new training session to exsiting diary" url="/new_training.jsf" />
 		                <p:menuitem value="Add new training program" url="/create-new-program.jsf" />
-		                <p:menuitem value="Edit existing diary" url="/user-panel.jsf" />
-		                <p:menuitem value="Edit existing training" url="/user-panel.jsf" />
+		                <p:menuitem value="Edit existing diary" url="/edit_existing_diary.jsf" />
+		                <p:menuitem value="Edit existing training" url="/edit_existing_training.jsf" />
 		                
                		</p:menuButton>
                	</p:toolbarGroup>
@@ -65,7 +65,7 @@ xmlns:p="http://primefaces.org/ui">
                           </p:dialog>
                           <br></br>
                           Choose type of training program <!--From ProgramTypesBean -->
-                      <p:growl id="msgs" showDetail="true"/>
+                      <p:growl id="status" showDetail="true" sticky="true"/>
 
                         		 		  <br></br>
 									      <p:selectOneMenu value="#{programType.programName}" effect="fold" editable="true">  
@@ -80,7 +80,7 @@ xmlns:p="http://primefaces.org/ui">
 
                               <p:editor id="editor" value="#{diaryBean.diaryDescription}" width="600"/>
                               <h:panelGrid columns="2" style="margin-top:10px">
-                                  <p:commandButton id="submitButton" value="Save diary!" action="#{diaryBean.SaveDiary}" ajax="false" />
+                                  <p:commandButton id="submitButton" value="Save diary!" action="#{diaryBean.SaveDiary}" ajax="false" update="status" />
                               </h:panelGrid>
                           
                               <p:dialog header="Content" widgetVar="dlg" showEffect="fade" hideEffect="fade" modal="true">

@@ -71,7 +71,7 @@ public class User implements Serializable
    }
  
    
-/*   public String login() //method which check if user which try to log in exist in database
+   public String login() //method which check if user which try to log in exist in database
    {
 	   boolean bEquals=false;
 	   Session session = HibernateUtil.getSessionFactory().openSession();
@@ -102,16 +102,16 @@ public class User implements Serializable
       
        if(bEquals==true)
        {
-    	  takeMeToUserPanel();         
+    	         
     	   return "user-panel";
        }
        else 
        {
 	     return "wrong-password-page";
        }   
-   }*/
+   }
 
-   public void checkPassword(ActionEvent actionEvent) 
+ /*  public void checkPassword(ActionEvent actionEvent) 
    {  
 	   boolean bEquals=false;
 	   Session session = HibernateUtil.getSessionFactory().openSession();
@@ -150,14 +150,14 @@ public class User implements Serializable
 			context.addMessage(null, new FacesMessage("Wrong password or login"));  
        }   
 
-   }  
+   } */ 
    
-   public String takeMeToUserPanel()
+  /* public String takeMeToUserPanel()
    {
 	   log.debug("Password and login are correct");
 	   return "user-panel";
    }
-   
+   */
    public String SaveUser() //method which save  new User 
    {
        Session session = HibernateUtil.getSessionFactory().openSession();

@@ -22,11 +22,12 @@ xmlns:p="http://primefaces.org/ui">
                 <p:toolbarGroup align="left">
 	                <p:menuButton value="Main menu">
 		                
-		                <p:menuitem value="Create new training diary" url="/user-panel.jsf" />
+		                  <p:menuitem value="Create new training diary" url="/user-panel.jsf" />
 		                <p:menuitem value="Add new training session to exsiting diary" url="/new_training.jsf" />
 		                <p:menuitem value="Add new training program" url="/create-new-program.jsf" />
-		                <p:menuitem value="Edit existing diary" url="/user-panel.jsf" />
-		                <p:menuitem value="Edit existing training" url="/user-panel.jsf" />
+		                <p:menuitem value="Edit existing diary" url="/edit_existing_diary.jsf" />
+		                <p:menuitem value="Edit existing training" url="/edit_existing_training.jsf" />
+		                
 		                
                		</p:menuButton>
                	</p:toolbarGroup>
@@ -44,6 +45,8 @@ xmlns:p="http://primefaces.org/ui">
 	
 	<!-- Middle layout sector -->
 		  <p:layoutUnit id="center" position="center" >
+		   <p:growl id="status" showDetail="true" sticky="true"/>
+		  
 		  <br></br>
 		  	Name of existing diary
 		  <br></br>
@@ -59,7 +62,7 @@ xmlns:p="http://primefaces.org/ui">
 			<br></br>
 				<p:editor value="#{training.description}" />
 			<br></br>
-	 			<p:commandButton value="Save training into exsiting Diary" action="#{training.SaveTraining}"></p:commandButton>
+	 			<p:commandButton value="Save training into exsiting Diary" action="#{training.SaveTraining}" update="status"></p:commandButton>
 		  </p:layoutUnit>
 	<!-- End of middle layout sector -->
 	

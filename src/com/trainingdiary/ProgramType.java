@@ -6,9 +6,11 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -137,6 +139,8 @@ public class ProgramType implements Serializable
 	           transaction.commit();
 	        
 	       log.debug("New Training Program Type saved succesfully");
+	       FacesContext context = FacesContext.getCurrentInstance();  
+    	   context.addMessage(null, new FacesMessage("New training program saved succesfully")); 
 	       }
 	       catch (HibernateException e) 
 	       {

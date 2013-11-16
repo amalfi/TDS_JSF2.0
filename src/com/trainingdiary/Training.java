@@ -5,9 +5,11 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -35,18 +37,19 @@ static Logger log = Logger.getLogger(Training.class);
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(columnDefinition = "MEDIUMINT NOT NULL AUTO_INCREMENT")
 	  
-  public String id;
+  public Integer id;
   public String description;
   public String choosedDiary;
   public HashMap<String,Object> allDiaries = new HashMap<String,Object>();
 	
 
-	
-public String getId() {
-return id;
+
+
+public Integer getId() {
+	return id;
 }
 
-public void setId(String id) {
+public void setId(Integer id) {
 	this.id = id;
 }
 
@@ -89,6 +92,9 @@ public void setAllDiaries(HashMap<String, Object> allDiaries) {
 	          session.save(training);
 	           transaction.commit();
 	       log.debug("Records inserted sucessessfully");
+	       FacesContext context = FacesContext.getCurrentInstance();  
+    	   context.addMessage(null, new FacesMessage("Training saved succesfull")); 
+    	   
 	       } catch (HibernateException e) 
 	       
 	       {

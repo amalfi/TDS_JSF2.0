@@ -37,7 +37,7 @@ xmlns:p="http://primefaces.org/ui">
 				     <br></br>
 				     <p:password value="#{user.password}" />
 				     <br></br>
-			     <p:commandButton actionListener="#{user.checkPassword}" value="Submit" update="growl"/>
+			     <p:commandButton action="#{user.login}" value="Submit" ajax="false"/>
 			     <br></br>   
 		      </p:panel>
    	    	

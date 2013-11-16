@@ -3,10 +3,12 @@ package com.trainingdiary;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -102,6 +104,10 @@ public class DiaryBean implements Serializable
 	           transaction.commit();
 	        
 	       log.debug("Diary created succesfully");
+
+    	   FacesContext context = FacesContext.getCurrentInstance();  
+    	   context.addMessage(null, new FacesMessage("Diary saved successfully")); 
+			
 	       } catch (HibernateException e) 
 	       
 	       {
