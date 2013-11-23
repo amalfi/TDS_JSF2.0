@@ -2,13 +2,16 @@ package com.trainingdiary;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,6 +21,7 @@ import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.primefaces.event.RowEditEvent;
 
 import com.trainingdiary.database.HibernateUtil;
 
@@ -47,8 +51,25 @@ public class DiaryBean implements Serializable
 	private Date diaryCreationDate;
 	private String diaryDescription;
 	private String choosedTrainingPlan;
+    public HashMap<String,Object> allDiaries = new HashMap<String,Object>();
+    public String choosedDiary;
+    boolean editable;
+//Lists of diaries properties 
+    private List<DiaryBean> diaryDescriptions;
+    
+    
+
 	
-    @Id
+    public List<DiaryBean> getDiaryDescriptions() {
+		return diaryDescriptions;
+	}
+	public void setDiaryDescriptions(List<DiaryBean> diaryDescriptions) {
+		this.diaryDescriptions = diaryDescriptions;
+	}
+    
+//
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(columnDefinition = "MEDIUMINT NOT NULL AUTO_INCREMENT")
 	private Integer id;
@@ -60,6 +81,15 @@ public class DiaryBean implements Serializable
 	public void setId(Integer id) {
 		this.id = id;
 	}
+	
+	public String getChoosedDiary() {
+		return choosedDiary;
+	}
+
+	public void setChoosedDiary(String choosedDiary) {
+		this.choosedDiary = choosedDiary;
+	}
+	
 	public Date getDiaryCreationDate() {
 		return diaryCreationDate;
 	}
@@ -83,6 +113,22 @@ public class DiaryBean implements Serializable
 	}
 	public void setChoosedTrainingPlan(String choosedTrainingPlan) {
 		this.choosedTrainingPlan = choosedTrainingPlan;
+	}
+	
+	public HashMap<String, Object> getAllDiaries() {
+		return allDiaries;
+	}
+
+	public void setAllDiaries(HashMap<String, Object> allDiaries) {
+		this.allDiaries = allDiaries;
+	}
+	
+//------------------------------------------------------------------	
+	public boolean isEditable() {
+		return editable;
+	}
+	public void setEditable(boolean editable) {
+		this.editable = editable;
 	}
 //------------------------------------------------------------------
 	  public String SaveDiary() //method which save diary0++
@@ -124,8 +170,85 @@ public class DiaryBean implements Serializable
 			  
 			
 	   }
-	
-	
-    
+	  
+		public HashMap<String,Object> getLoadDiaries()
+		{
+			allDiaries=LoadDiaries();
+			return allDiaries;
+		}
+	  
+	  
+		public HashMap<String,Object> LoadDiaries()
+		{
+			Session session = HibernateUtil.getSessionFactory().openSession();
+	        Transaction transaction = null;
+	        try 
+	        { 
+	            transaction = session.beginTransaction();
+	            List programtypes = session.createQuery("from DiaryBean").list(); //is worth to remember (common mistake) - when you use want to select from table, use bean name, not table name
+	            for (Iterator iterator = programtypes.iterator(); iterator.hasNext();)
+	            {
+	                DiaryBean diary = (DiaryBean) iterator.next();
+	                allDiaries.put(diary.getNameOfDiary().toString(), diary);
+	              
+	                log.debug("Currently loaded diary "+ diary.getNameOfDiary().toString());
+	            }          	
+	            transaction.commit();
+	        } 
+	        catch (HibernateException e) 
+	        {
+	            transaction.rollback();
+	            e.printStackTrace();  
+	            log.debug(e.getMessage());
+	        } 
+	        finally 
+	        {
+	            session.close();
+	        }
+			return allDiaries;
+		}
+
+		//getChoosedTrainingDiaryProperties
+		public HashMap<String,Object> getChoosedTrainingDiaryProperties()
+		{
+			Session session = HibernateUtil.getSessionFactory().openSession();
+	        Transaction transaction = null;
+	        try 
+	        { 
+	            transaction = session.beginTransaction();
+	            List programtypes = session.createQuery("from DiaryBean ").list(); //is worth to remember (common mistake) - when you use want to select from table, use bean name, not table name
+	            for (Iterator iterator = programtypes.iterator(); iterator.hasNext();)
+	            {
+	                DiaryBean diary = (DiaryBean) iterator.next();
+	                allDiaries.put(diary.getNameOfDiary().toString(), diary);
+	                log.debug("Currently loaded diary "+ diary.getNameOfDiary().toString());
+	            }          	
+	            transaction.commit();
+	        } 
+	        catch (HibernateException e) 
+	        {
+	            transaction.rollback();
+	            e.printStackTrace();  
+	            log.debug(e.getMessage());
+	        } 
+	        finally 
+	        {
+	            session.close();
+	        }
+			return allDiaries;
+		}
+		
+		public void onEdit(RowEditEvent event)
+		{
+	        FacesMessage msg = new FacesMessage("Row edited");
+	        FacesContext.getCurrentInstance().addMessage(null, msg);
+	    }
+	    
+	    public void onCancel(RowEditEvent event) 
+	    {
+	        FacesMessage msg = new FacesMessage("Car Cancelled");
+	        FacesContext.getCurrentInstance().addMessage(null, msg);
+	    }
+	    
 }
                     

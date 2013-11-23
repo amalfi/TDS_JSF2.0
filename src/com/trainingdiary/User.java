@@ -89,6 +89,7 @@ public class User implements Serializable
                log.debug("User : " + user.getName().toString());
            }         
            transaction.commit();
+         
        } 
        catch (HibernateException e) 
        {

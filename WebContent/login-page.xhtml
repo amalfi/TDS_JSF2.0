@@ -12,7 +12,8 @@ xmlns:p="http://primefaces.org/ui">
 </h:head>
 <h:body>
 <h:form>
-<p:layout fullPage="true" >
+<p:layout fullPage="true" id="layout">
+
 
              <p:layoutUnit id="top" position="north" size="100" >north</p:layoutUnit>
              
@@ -46,11 +47,24 @@ xmlns:p="http://primefaces.org/ui">
 			
             <p:layoutUnit id="bottom" position="south" size="100" > <b> You are not registered ? Click the button to get into registration process !</b>
 	   		  <br></br>
-		     <p:commandButton value="Take me to the registration site" action="registration-page"></p:commandButton>
+		     <p:commandButton value="Take me to the registration site" action="registration-page">
+		     	<f:ajax execute="layout" render="layout" />
+		     </p:commandButton>
 			</p:layoutUnit>
 				
-			                              
+	                              
 </p:layout>
-</h:form>	
+</h:form>
+
+<p:ajaxStatus style="width:64px;height:64px;position:fixed;right:5px;bottom:5px">
+    <f:facet name="start">
+        <p:graphicImage value="D:\Java\loading.gif" />
+    </f:facet>
+
+    <f:facet name="complete">
+        <h:outputText value="" />
+    </f:facet>
+</p:ajaxStatus>
+	
 </h:body>
 </html>
